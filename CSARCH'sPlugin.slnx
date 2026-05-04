@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="给D级人员发卡/CSARCH's Plugin.csproj" Id="0f93c4ab-c1e3-429c-9e26-0b81f3a14976">
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+</Solution>
