@@ -17,16 +17,28 @@
 ## 📁 结构
 
 ```
-Config.cs
-Plugin.cs
-
-Events/
- ├── Command/
- ├── Handlers/
- ├── Player/
- └── Server/
-```
-
+CSARCH'sPlugin
+│
+├── Config.cs
+├── Plugin.cs
+│
+├── Events
+│   ├── Command
+│   │   └── ConsoleChat.cs
+│   │
+│   ├── Handlers
+│   │   └── Handlers.cs
+│   │
+│   ├── Player
+│   │   ├── KeycardGive.cs
+│   │   ├── MTFKeycardFixer.cs
+│   │   └── SCP207Yes.cs
+│   │
+│   └── Server
+│       ├── Cleaner.cs
+│       ├── InfiniteAmmo.cs
+│       ├── KeycardSystem.cs
+│       └── SCP3114.cs
 ---
 
 ## 🚀 功能模块
