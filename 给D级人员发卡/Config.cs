@@ -119,7 +119,7 @@ namespace CSARCHsPlugins
         public bool Enabled { get; set; } = true;
 
         [Description("文本颜色")]
-        public string Color { get; set; } = "#000000";
+        public string Color { get; set; } = "#FFFFFF";
         [Description("水平偏移（Hint X坐标）")]
         public int XPosition { get; set; } = 0;
 

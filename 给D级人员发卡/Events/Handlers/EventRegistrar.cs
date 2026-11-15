@@ -61,7 +61,10 @@ namespace CSARCHsPlugins.Events.Handlers
             if (scp207Yes != null && config.SCP207.Enabled)
                 Player.Hurting += scp207Yes.OnHurting;
             if (keycardSystem != null && config.KeycardSystem.Enabled)
+            {
                 Player.InteractingDoor += keycardSystem.OnInteractingDoor;
+                Player.InteractingLocker += keycardSystem.OnInteractingLocker;
+            }
             if (scp3114 != null && config.SCP3114.Enabled)
                 Server.RoundStarted += scp3114.OnRoundStarted;
             if (playernameDisplay != null && config.PlayerNameDisplay.Enabled)
@@ -85,11 +88,17 @@ namespace CSARCHsPlugins.Events.Handlers
             if (mtfKeycardFixer != null && config.MTFKeycard.Enabled)
                 Player.Spawned -= mtfKeycardFixer.OnPlayerSpawned;
             if (cleaner != null && config.Cleaner.Enabled)
-                Server.RoundStarted -= cleaner.Stop;
+            {
+                Server.RoundStarted -= cleaner.Start;
+                cleaner.Stop();
+            }
             if (scp207Yes != null && config.SCP207.Enabled)
                 Player.Hurting -= scp207Yes.OnHurting;
             if (keycardSystem != null && config.KeycardSystem.Enabled)
+            {
                 Player.InteractingDoor -= keycardSystem.OnInteractingDoor;
+                Player.InteractingLocker -= keycardSystem.OnInteractingLocker;
+            }
             if (scp3114 != null && config.SCP3114.Enabled)
                 Server.RoundStarted -= scp3114.OnRoundStarted;
             if (playernameDisplay != null && config.PlayerNameDisplay.Enabled)

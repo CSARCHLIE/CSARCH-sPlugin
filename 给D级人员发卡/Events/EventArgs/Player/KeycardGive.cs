@@ -25,7 +25,16 @@ namespace CSARCHsPlugins.Events.EventArgs.Player
                     {
                         ev.Player.AddItem(Config.GiveKeyCard.KeycardType);
                     }
-                    ev.Player.Broadcast(Config.GiveKeyCard.BroadcastDuration, Config.GiveKeyCard.BroadcastMessage);
+                    if (Config.GiveKeyCard.BroadcastEnabled)
+                    {
+                        string message = Config.GiveKeyCard.BroadcastMessageTemplate;
+                        if (string.IsNullOrEmpty(message))
+                            message = Config.GiveKeyCard.BroadcastMessage;
+                        message = message
+                            .Replace("{prefix}", Config.GiveKeyCard.BroadcastPrefix)
+                            .Replace("{player}", ev.Player.Nickname);
+                        ev.Player.Broadcast(Config.GiveKeyCard.BroadcastDuration, message);
+                    }
                 }
             }
         }

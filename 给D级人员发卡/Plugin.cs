@@ -121,12 +121,14 @@ Welcome use:
                 playernameDisplay
                 );
             handlers.Register();
+            playernameDisplay?.Start();
             base.OnEnabled();
         }
         public override void OnDisabled()
         {
             Log.Info("插件已卸载，感谢使用");
             handlers?.Unregister();
+            playernameDisplay?.Stop();
             base.OnDisabled();
         }
     }
