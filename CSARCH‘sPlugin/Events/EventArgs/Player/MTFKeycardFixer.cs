@@ -7,12 +7,6 @@ namespace CSARCHsPlugins.Events.EventArgs.Player
 {
     public class MTFKeycardFixer
     {
-        private readonly Config _config;
-
-        public MTFKeycardFixer(Config config)
-        { 
-            _config = config; 
-        }
         public void OnPlayerSpawned(SpawnedEventArgs ev)
         {
             if (ev.Player.Role.Type != RoleTypeId.NtfPrivate)

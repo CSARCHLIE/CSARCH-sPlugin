@@ -17,6 +17,7 @@ namespace CSARCHsPlugins.Events.Handlers
         private readonly MTFKeycardFixer mtfKeycardFixer;
         private readonly KeycardSystem keycardSystem;
         private readonly SCP3114 scp3114;
+        private readonly SCPHealthPlus scpHealthPlus;
         private readonly PlayerNameDisplay playernameDisplay;
         private readonly Config config;
         public EventRegistrar
@@ -29,6 +30,7 @@ namespace CSARCHsPlugins.Events.Handlers
             MTFKeycardFixer mtfKeycardFixer, 
             KeycardSystem keycardSystem, 
             SCP3114 scp3114, 
+            SCPHealthPlus scpHealthPlus,
             PlayerNameDisplay playernameDisplay
             = null
             )
@@ -41,6 +43,7 @@ namespace CSARCHsPlugins.Events.Handlers
             this.mtfKeycardFixer = mtfKeycardFixer;
             this.keycardSystem = keycardSystem;
             this.scp3114 = scp3114;
+            this.scpHealthPlus = scpHealthPlus;
             this.playernameDisplay = playernameDisplay;
         }
         public void Register()
@@ -67,12 +70,17 @@ namespace CSARCHsPlugins.Events.Handlers
             }
             if (scp3114 != null && config.SCP3114.Enabled)
                 Server.RoundStarted += scp3114.OnRoundStarted;
+            if (scpHealthPlus != null && config.SCPHealthPlus.Enabled)
+                Player.Hurt += scpHealthPlus.OnHurt;
             if (playernameDisplay != null && config.PlayerNameDisplay.Enabled)
             {
                 Player.Verified += playernameDisplay.OnVerified;
                 Player.Left += playernameDisplay.OnLeft;
+                playernameDisplay.Start();
             }
 
+            if (scpHealthPlus != null && config.SCPHealthPlus.Enabled)
+                scpHealthPlus.Start();
         }
         public void Unregister()
         {
@@ -101,10 +109,16 @@ namespace CSARCHsPlugins.Events.Handlers
             }
             if (scp3114 != null && config.SCP3114.Enabled)
                 Server.RoundStarted -= scp3114.OnRoundStarted;
+            if (scpHealthPlus != null && config.SCPHealthPlus.Enabled)
+            {
+                Player.Hurt -= scpHealthPlus.OnHurt;
+                scpHealthPlus.Stop();
+            }
             if (playernameDisplay != null && config.PlayerNameDisplay.Enabled)
             {
                 Player.Verified -= playernameDisplay.OnVerified;
                 Player.Left -= playernameDisplay.OnLeft;
+                playernameDisplay.Stop();
             }
         }
     }

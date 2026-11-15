@@ -8,15 +8,16 @@ namespace CSARCHsPlugins.Events.EventArgs.Server
 {
     public class Cleaner
     {
-        public Config Config;
+        private readonly Config _config;
         private CoroutineHandle _loop;
+
         public Cleaner(Config config)
         {
-            Config = config;
+            _config = config;
         }
         public void Start()
         {
-            if (!Config.Cleaner.Enabled)
+            if (!_config.Cleaner.Enabled)
                 return;
             _loop = Timing.RunCoroutine(CleanLoop());
             Log.Info("[Cleaner] 已启动");
@@ -31,7 +32,7 @@ namespace CSARCHsPlugins.Events.EventArgs.Server
         {
             while (true)
             {
-                yield return Timing.WaitForSeconds(Config.Cleaner.Interval);
+                yield return Timing.WaitForSeconds(_config.Cleaner.Interval);
                 CleanMap();
             }
         }
@@ -39,7 +40,7 @@ namespace CSARCHsPlugins.Events.EventArgs.Server
         {
             int rag = 0;
             int ammo = 0;
-            if (Config.Cleaner.CleanRagdolls)
+            if (_config.Cleaner.CleanRagdolls)
             {
                 foreach (var r in Ragdoll.List)
                 {
@@ -49,7 +50,7 @@ namespace CSARCHsPlugins.Events.EventArgs.Server
                     rag++;
                 }
             }
-            if (Config.Cleaner.CleanAmmo)
+            if (_config.Cleaner.CleanAmmo)
             {
                 foreach (var p in Pickup.List)
                 {
@@ -62,11 +63,11 @@ namespace CSARCHsPlugins.Events.EventArgs.Server
                     ammo++;
                 }
             }
-            string msg = Config.Cleaner.BroadcastMessage.Replace("{rag}", rag.ToString()).Replace("{ammo}", ammo.ToString());
+            string msg = _config.Cleaner.BroadcastMessage.Replace("{rag}", rag.ToString()).Replace("{ammo}", ammo.ToString());
             Log.Info($"[Cleaner] 清理完成 | 尸体:{rag} 弹药:{ammo}");
             try
             {
-                Map.Broadcast(Config.Cleaner.BroadcastDuration, msg);
+                Map.Broadcast(_config.Cleaner.BroadcastDuration, msg);
             }
             catch
             {

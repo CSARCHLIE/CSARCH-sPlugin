@@ -6,14 +6,15 @@ namespace CSARCHsPlugins.Events.EventArgs.Server
 {
     public class InfiniteAmmo
     {
-        public Config Config;
+        private readonly Config _config;
+
         public InfiniteAmmo(Config config)
         {
-            Config = config;
+            _config = config;
         }
         public void OnRoundStarted()
         {
-            if (!Config.InfiniteAmmo.Enabled)
+            if (!_config.InfiniteAmmo.Enabled)
                 return;
             foreach (var pickup in Exiled.API.Features.Pickups.AmmoPickup.List)
             {
@@ -30,7 +31,7 @@ namespace CSARCHsPlugins.Events.EventArgs.Server
 
         public void OnPlayerSpawned(SpawnedEventArgs ev)
         {
-            if (!Config.InfiniteAmmo.Enabled)
+            if (!_config.InfiniteAmmo.Enabled)
                 return;
             if (!IsAmmoTypeExcluded(ev.Player, AmmoType.Nato9))
                 ev.Player.SetAmmo(AmmoType.Nato9, 0);
@@ -45,14 +46,14 @@ namespace CSARCHsPlugins.Events.EventArgs.Server
         }
         public void OnReloadingWeapon(ReloadingWeaponEventArgs ev)
         {
-            if (!Config.InfiniteAmmo.Enabled)
+            if (!_config.InfiniteAmmo.Enabled)
                 return;
 
             Firearm firearm = ev.Player.CurrentItem as Firearm;
             if (firearm == null)
                 return;
 
-            if (Config.InfiniteAmmo.ExcludedWeapons.Contains(firearm.Type))
+            if (_config.InfiniteAmmo.ExcludedWeapons.Contains(firearm.Type))
                 return;
 
             if (firearm.MagazineAmmo >= firearm.MaxMagazineAmmo &&
@@ -64,10 +65,10 @@ namespace CSARCHsPlugins.Events.EventArgs.Server
         }
         public void OnReloadedWeapon(ReloadedWeaponEventArgs ev)
         {
-            if (!Config.InfiniteAmmo.Enabled)
+            if (!_config.InfiniteAmmo.Enabled)
                 return;
             Firearm firearm = ev.Player.CurrentItem as Firearm;
-            if (firearm == null || Config.InfiniteAmmo.ExcludedWeapons.Contains(firearm.Type))
+            if (firearm == null || _config.InfiniteAmmo.ExcludedWeapons.Contains(firearm.Type))
                 return;
             ev.Player.SetAmmo(firearm.AmmoType, 0);
         }
@@ -97,7 +98,7 @@ namespace CSARCHsPlugins.Events.EventArgs.Server
             {
                 Firearm firearm = item as Firearm;
                 if (firearm != null && firearm.AmmoType == ammoType &&
-                    Config.InfiniteAmmo.ExcludedWeapons.Contains(firearm.Type))
+                    _config.InfiniteAmmo.ExcludedWeapons.Contains(firearm.Type))
                     return true;
             }
 

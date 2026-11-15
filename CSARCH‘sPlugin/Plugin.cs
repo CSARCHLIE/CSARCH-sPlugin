@@ -25,6 +25,7 @@ namespace CSARCHsPlugins
         private PlayerNameDisplay playernameDisplay;
         private MTFKeycardFixer mtfKeycardFixer;
         private SCP3114 scp3114;
+        private SCPHealthPlus scpHealthPlus;
 
         public override void OnEnabled()
         {
@@ -71,7 +72,7 @@ namespace CSARCHsPlugins
 
             if (Config.MTFKeycard.Enabled)
             {
-                mtfKeycardFixer = new MTFKeycardFixer(Config);
+                mtfKeycardFixer = new MTFKeycardFixer();
                 Log.Info($"[{SystemType.MTFKeycardFixer}] Loaded");
             }
 
@@ -92,6 +93,9 @@ namespace CSARCHsPlugins
                 playernameDisplay = new PlayerNameDisplay(Config);
                 Log.Info($"[{SystemType.PlayerNameDisplay}] Loaded");
             }
+
+            if (Config.SCPHealthPlus.Enabled)
+                scpHealthPlus = new SCPHealthPlus();
 
             Log.Warn("CSARCH's Plugin initialization completed.");
         
@@ -118,17 +122,15 @@ Welcome use:
                 mtfKeycardFixer, 
                 keycardSystem, 
                 scp3114,
+                scpHealthPlus,
                 playernameDisplay
                 );
             handlers.Register();
-            playernameDisplay?.Start();
-            base.OnEnabled();
         }
         public override void OnDisabled()
         {
             Log.Info("插件已卸载，感谢使用");
             handlers?.Unregister();
-            playernameDisplay?.Stop();
             base.OnDisabled();
         }
     }

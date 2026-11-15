@@ -27,6 +27,9 @@ namespace CSARCHsPlugins
         [Description("SCP-3114 替换配置")]
         public SCP3114Config SCP3114 { get; set; } = new SCP3114Config();
 
+        [Description("SCP 脱战静止回血配置")]
+        public SCPHealthPlusConfig SCPHealthPlus { get; set; } = new SCPHealthPlusConfig();
+
         [Description("玩家名称UI配置")]
         public PlayerNameDisplayConfig PlayerNameDisplay { get; set; } = new PlayerNameDisplayConfig();
     }
@@ -113,6 +116,12 @@ namespace CSARCHsPlugins
         [Description("广播消息")]
         public string BroadcastMessage { get; set; } = "";
     }
+    public class SCPHealthPlusConfig
+    {
+        [Description("是否启用 SCP 脱战静止回血")]
+        public bool Enabled { get; set; } = true;
+    }
+
     public class PlayerNameDisplayConfig
     {
         [Description("是否启用玩家名称UI")]

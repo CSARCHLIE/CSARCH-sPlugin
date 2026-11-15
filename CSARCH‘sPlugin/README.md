@@ -14,17 +14,23 @@
 
 ---
 
-## 📁 结构
+## 📁 项目结构
 
 ```
 Config.cs
 Plugin.cs
-
+API/
+ ├── Commands/
+ ├── Enums/
+ ├── UI/
+ └── FileName.cs
 Events/
- ├── Command/
- ├── Handlers/
- ├── Player/
- └── Server/
+ ├── EventArgs/
+ │   ├── Items/
+ │   ├── Player/
+ │   ├── SCP/
+ │   └── Server/
+ └── Handlers/
 ```
 
 ---
@@ -48,6 +54,12 @@ Events/
 ### 🧟 SCP 相关
 - SCP-207 行为修复
 - SCP-3114 行为扩展
+- SCP 连续 30 秒未受伤且原地静止后，每 0.2 秒恢复 1 点生命值
+
+### 👤 玩家功能
+- 为 D 级人员发放钥匙卡
+- 将 MTF 列兵的特工卡替换为列兵卡
+- 显示玩家名称 UI
 
 ---
 
