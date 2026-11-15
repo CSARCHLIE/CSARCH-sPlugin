@@ -14,7 +14,7 @@ namespace CSARCHsPlugins
         public override string Author => "CSARCH";
         public override string Name => "CSARCH's Plugin";
         public override string Prefix => "CSARCH's Plugin";
-        public override Version Version => new Version(7, 1, 0);
+        public override Version Version => new Version(7, 2, 0);
         public override Version RequiredExiledVersion => new Version(9, 13, 2);
         private Keycardgive keycardgive;
         private InfiniteAmmo infiniteAmmo;
